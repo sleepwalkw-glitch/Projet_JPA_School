@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MANAGEMENT OF THE CLASSES</title>
+</head>
+<body>
+<h1>INFORMATIONS ABOUT THE CLASSES</h1>
+<hr>
+
+<a th:href="@{/classe/newClasse}"><button>CREATE A NEW CLASS</button> </a>
+<a th:href="@{/professeur/}">ALL ABOUT THE PROFESSORS</a>
+<hr>
+
+<div>
+    <!-table to show all the information of the class-->
+    <table th:if="${classes != null and !classes.isEmpty()}">
+        <tr>
+            <th>Nom</th>
+            <th>Niveau</th>
+            <th>Matière</th>
+            <th>Professeur</th>
+            <th>Nombre d'élèves</th>
+            <!- the actions with links can be placed in detail file Actions-->
+
+        </tr>
+        <tr th:each="classe : ${classes}">
+            <td th:text="${classe.nom}"></td>
+            <td th:text="${classe.niveau}"></td>
+            <td th:text="${classe.matiere}"></td>
+            <td>
+                <!-for the link for the details of professeur, should check the the id for the attribute professeur in classe-->
+                <a th:href="@{/professeur/{id}/detail(id=${classe.professeur.id})}">
+                   PROFESSOR</a>
+                <!-span th:text="${classe.professeur.nom+' '+classe.profeseur.prenom}"-->
+            </td>
+            <td th:text="${classe.nombreEleves}"></td>
+
+        </tr>
+    </table>
+    <p th:if="${classes == null or classes.isEmpty()}">NO VALID INFORMATION FOR THE CLASS</p>
+</div>
+</body>
+</html>

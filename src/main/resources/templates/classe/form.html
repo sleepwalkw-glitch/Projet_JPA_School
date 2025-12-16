@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formula for class</title>
+</head>
+<body>
+<!-- for the formula linked by button to create a new class, but for the action, the path should be where?-->
+<form method="get" th:action="@{/newClasse}">
+    <label>Name of class</label>
+        <input type="text" name="Nom"/>
+
+
+    <label>Niveau : </label>
+        <!--to select from several niveau,should not use input but to use select-->
+    <label>
+        <select >
+            <option th:value="seconde">Seconde</option>
+            <option th:value="Première">Première</option>
+            <option th:value="Terminale">Terminale</option>
+            <option th:value="BTS">BTS</option>
+        </select>
+    </label>
+
+    <label>
+        <input type="text" name="Matiere"/>
+    </label>
+    <label>
+        <input type="number" name="Number of students"/>
+    </label>
+    <label>
+        <select>PROFESSEUR</select>
+        <input type="search" name="Professeur"/>
+    </label>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+</form>
+
+<!--form for modify should be added as get and th:action@{/{id}/modify}-->
+</body>
+</html>

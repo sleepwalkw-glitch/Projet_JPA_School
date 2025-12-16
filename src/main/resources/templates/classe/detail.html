@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DETAIL OF THE CLASS</title>
+</head>
+<body>
+    <h1 th:text="${classe.nom}"></h1>
+    <hr>
+
+    <div class="niveau">
+        <strong >Niveau :</strong><span th:text="${classe.niveau}"></span>
+    </div>
+
+    <div class="matiere">
+        <strong >Matière :</strong><span th:text="${classe.matiere}"></span>
+    </div>
+
+    <div class="Nombre d'élèves">
+        <strong >Nombre d'élèves :</strong><span th:text="${classe.nombreEleves}"></span>
+    </div>
+
+    <div class="Information for professeur">
+        <strong >Information of Professeur : </strong>
+        <a th:href="@{/professeur/{id}/detail(id=${classe.professeur.id})}">PROFESSEUR</a>
+        <span th:text="${classe.professeur.nom+' '+classe.professeur.prenom}"></span>
+        <span th:text="${classe.professeur.email}">E-mail</span>
+    </div>
+
+    <div>
+        <a th:href="@{/classe/{id}/detail(id=${classe.id})}"><button>DETAILS</button></a>
+        <a th:href="@{/classe/{id}/modify(id=${classe.id})}"><button>MODIFY</button></a>
+        <a th:href="@{/classe/{id}/delete(id=${classe.id})}"><button>DELETE</button></a>
+    </div>
+
+    <a th:href="@{/classe/}"><button>HOME PAGE</button></a>
+</body>
+</html>
