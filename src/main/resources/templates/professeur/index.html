@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Professeurs</title>
+</head>
+<body>
+<h1>INFORMATION ABOUT THE PROFESSORS</h1>
+<hr>
+
+<a th:href="@{/professeur/newProfesseur}"><button>ADD A NEW PROFESSOR</button></a>
+<a th:href="@{/classe/}">ALL ABOUT THE CLASSES</a>
+<hr>
+
+<div>
+    <table th:if="${professeurs != null and !professeurs.isEmpty()}">
+        <tr>
+            <th>Nom et Prenom</th>
+            <th>E-Mail</th>
+            <th>Nombre de classes</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="professeur : ${professeurs}">
+            <td>
+             <span th:text="${professeur.nom+' '+professeur.prenom}"></span>
+            </td>
+            <td th:text="${professeur.email}"></td>
+
+            <td th:text="${professeur.classes.size()}">Nombre de classe</td>
+            <td class="actions">
+               <a th:href="@{/professeur/{id}(id=${professeur.id})}" class="btn btn-sm btn-info">DETAILS</a>
+               <a th:href="@{/professeur/{id}/modify}" class="btn btn-sm btn-warning">MODIFY</a>
+               <a th:href="@{/professeur/{id}/delete}" class="btn btn-sm btn-danger"
+                  onclick="return confirm('confirmer la suppression ?')">DELETE</a>
+            </td>
+        </tr>
+
+    </table>
+    <p th:if="${professeurs == null or professeurs.isEmpty()}">NO VALID INFORMATION FOR THE PROFESSOR</p>
+</div>
+</body>
+</html>
