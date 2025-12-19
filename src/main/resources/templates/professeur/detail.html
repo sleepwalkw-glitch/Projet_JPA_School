@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DETAIL OF THE PROFESSOR</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="Information for professeur">
+        <strong> Detail Professeur </strong>
+        <a th:href="@{/professeur/{id}(id=${professeur.id})}">PROFESSOR</a>
+        <hr>
+        <p><strong>Nom et Prénom de Professeur: </strong><span th:text="${professeur.nom+' '+professeur.prenom}"></span></p>
+        <p><strong>E-Mail de Professeur: </strong><span th:text="${professeur.email}">E-mail:</span></p>
+    </div>
+    <hr>
+
+    <div>
+        <strong>Classes Enseignées</strong>
+        <table >
+            <tr>
+                <th>Nom de Classe: </th>
+                <th>Niveau: </th>
+                <th>Matiere: </th>
+                <th>Nombre des éleves: </th>
+            </tr>
+
+            <tr th:each="classe : ${professeur.classes}">
+                <td th:text="${classe.nom}"></td>
+                <td th:text="${classe.niveau}"></td>
+                <td th:text="${classe.matiere}"></td>
+                <td th:text="${classe.nombreEleves}"></td>
+            </tr>
+        </table>
+
+    </div>
+    <hr>
+
+    <div>
+       <p><strong>Numbre de classe: </strong><span th:text="${professeur.classes.size()}"></span></p>
+       <p><strong>Numbre total d'éleve: </strong><span th:text="${nombreEleves}"></span></p>
+    </div>
+
+    <div>
+        <a th:href="@{/professeur/{id}/modify(id=${professeur.id})}"><button class="btn btn-warning">MODIFY</button></a>
+        <a th:href="@{/professeur/{id}/delete(id=${professeur.id})}"><button class="btn btn-danger">DELETE</button></a>
+        <a th:href="@{/professeur/}"><button class="btn btn-info">RETOUR</button></a>
+    </div>
+
+</body>
+</html>
