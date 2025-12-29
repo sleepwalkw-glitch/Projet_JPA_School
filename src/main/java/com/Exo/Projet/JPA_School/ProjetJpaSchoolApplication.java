@@ -28,9 +28,9 @@ public class ProjetJpaSchoolApplication {
                Professeur prof2 = professeurRepository.findById(2L).get();
                Professeur prof3 = professeurRepository.findById(3L).get();
 
-                classeRepository.save(new Classe("Classe A", "Terminale", "Mathématiques", 30, prof1));
-                classeRepository.save(new Classe("Classe B", "Première", "Histoire", 25, prof2));
-                classeRepository.save(new Classe("Classe C", "Second", "Physique", 28, prof3));
+                classeRepository.save(new Classe("Classe A", "Terminale", "Mathématiques", 30, prof1,"RDC101"));
+                classeRepository.save(new Classe("Classe B", "Première", "Histoire", 25, prof2, "RDC102"));
+                classeRepository.save(new Classe("Classe C", "Second", "Physique", 28, prof3, "RDC103"));
 
                 Classe classe1 = classeRepository.findById(1L).get();
                 Classe classe2 = classeRepository.findById(2L).get();

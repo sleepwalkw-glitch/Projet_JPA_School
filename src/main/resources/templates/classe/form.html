@@ -3,39 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Formula for class</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<!-- for the formula linked by button to create a new class, but for the action, the path should be where?-->
-<form method="get" th:action="@{/newClasse}">
-    <label>Name of class</label>
-        <input type="text" name="Nom"/>
 
+<form th:action="${classe.id == null ? '/classe/newClasse' :'/classe/' + classe.id+'/modify'}" method="post" class = "form">
+    <label for="nom">Name of class: </label>
+        <input type="text" id="nom" name="nom"/>
 
     <label>Niveau : </label>
-        <!--to select from several niveau,should not use input but to use select-->
-    <label>
-        <select >
-            <option th:value="seconde">Seconde</option>
-            <option th:value="Première">Première</option>
-            <option th:value="Terminale">Terminale</option>
-            <option th:value="BTS">BTS</option>
+
+    <label for="niveau">Niveau: </label>
+        <select id="niveau" name="niveau" class="form-input" required>
+            <option value="">--Chose your niveau--</option>
+            <option th:value="Seconde" th:selected="${classe.niveau == 'Seconde'}">Seconde</option>
+            <option th:value="première" th:selected="${classe.niveau == 'Première'}">Première</option>
+            <option th:value="Terminale" th:selected="${classe.niveau == 'Terminale'}">Terminale</option>
+            <option th:value="BTS" th:selected="${classe.niveau == 'BTS'}">BTS</option>
         </select>
-    </label>
 
-    <label>
-        <input type="text" name="Matiere"/>
-    </label>
-    <label>
-        <input type="number" name="Number of students"/>
-    </label>
-    <label>
-        <select>PROFESSEUR</select>
-        <input type="search" name="Professeur"/>
-    </label>
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
+
+    <label for="matiere">Matière: </label>
+    <select id="matiere" name="matiere" class="form-input" required>
+        <option value="">--Select a Major--</option>
+        <option value="Mathématiques" th:selected="${classe.matiere  =='Mathématiques'}">Mathématiques</option>
+        <option value="Français" th:selected="${classe.matiere  =='Français'}">Français</option>
+        <option value="Science" th:selected="${classe.matiere  =='Science'}">Science</option>
+        <option value="Physique" th:selected="${classe.matiere  =='Physique'}">Physique</option>
+        <option value="Histoire" th:selected="${classe.matiere  =='Histoire'}">Histoire</option>
+    </select>
+
+    <label for="nombreEleves">Number of Students: </label>
+        <input type="number" id="nombreEleves" name="nombreEleves" min="1" required/>
+
+
+    <label for="professeur">Professor: </label>
+    <select id="professeur" name="professeur" class="form-input" required>
+            <option value="">--Select a professor--</option>
+            <option th:each="prof : ${professeurs}"
+                    th:value="${prof.id}"
+                    th:text="${prof.prenom}+' '+${prof.nom}"
+                    th:selected="${classe.professeur != null && classe.professeur.id == prof.id}">
+            </option>
+    </select>
+
+    <label for="salle">Salle: </label>
+    <select id="salle" name="salle" class="form-input" required>
+        <option value="">--Select a Salle--</option>
+        <option value="RDC101" th:selected="${classe.salle  =='RDC101'}">RDC101</option>
+        <option value="RDC102" th:selected="${classe.salle  =='RDC102'}">RDC102</option>
+        <option value="RDC103" th:selected="${classe.salle  =='RDC103'}">RDC103</option>
+        <option value="RDC104" th:selected="${classe.salle  =='RDC104'}">RDC104</option>
+        <option value="RDC105" th:selected="${classe.salle  =='RDC105'}">RDC105</option>
+        <option value="RDC106" th:selected="${classe.salle  =='RDC106'}">RDC106</option>
+    </select>
+
+
+    <button type="submit" class="btn btn-warning">Submit</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+
 </form>
+    <a th:href="@{/classe/}"><button class="btn btn-info">Return</button></a>
 
-<!--form for modify should be added as get and th:action@{/{id}/modify}-->
 </body>
 </html>

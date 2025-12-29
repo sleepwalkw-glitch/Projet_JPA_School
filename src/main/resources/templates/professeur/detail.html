@@ -8,7 +8,7 @@
 <body>
     <div class="Information for professeur">
         <strong> Detail Professeur </strong>
-        <a th:href="@{/professeur/{id}(id=${professeur.id})}">PROFESSOR</a>
+        <a th:href="@{/professeur/}"> ABOUT ALL PROFESSORS</a>
         <hr>
         <p><strong>Nom et Prénom de Professeur: </strong><span th:text="${professeur.nom+' '+professeur.prenom}"></span></p>
         <p><strong>E-Mail de Professeur: </strong><span th:text="${professeur.email}">E-mail:</span></p>
@@ -37,8 +37,9 @@
     <hr>
 
     <div>
-       <p><strong>Numbre de classe: </strong><span th:text="${professeur.classes.size()}"></span></p>
-       <p><strong>Numbre total d'éleve: </strong><span th:text="${nombreEleves}"></span></p>
+       <p><strong>Nombre de classe: </strong><span th:text="${professeur.classes.size()}"></span></p>
+       <p><strong>Nombre total d'éleve: </strong><span th:text="${nombreEleves}"></span></p>
+        <p><strong>Nombre Moyen d'éleve: </strong><span th:text="${nombreMoyenEleves}"></span></p>
     </div>
 
     <div>

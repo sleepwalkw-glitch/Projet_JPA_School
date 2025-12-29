@@ -11,21 +11,24 @@ public class Classe {
     private String nom;
     private String niveau;
     private String matiere;
+    // here can change to Matiere matiere, this is the enum, but my code can not use it propose to set the depencies
     private int nombreEleves;
+    private String salle;
 
     @ManyToOne
     @JoinColumn(name = "professeur_id")
-    @JsonBackReference
+    //@JsonBackReference
     private Professeur professeur;
 
     public Classe() {}
 
-    public Classe(final String nom,final String niveau,final String matiere,final int nombreEleves,final Professeur professeur) {
+    public Classe(final String nom,final String niveau,final String matiere,final int nombreEleves,final Professeur professeur, final String salle) {
         this.nom = nom;
         this.niveau = niveau;
         this.matiere = matiere;
         this.nombreEleves = nombreEleves;
         this.professeur = professeur;
+        this.salle = salle;
     }
 
     public String getNom() {return nom;}
@@ -44,6 +47,10 @@ public class Classe {
 
     public void setNombreEleves(int nombreEleves) {this.nombreEleves = nombreEleves;}
 
+    public boolean nombreElevesValide() {
+        return nombreEleves > 0;
+    }
+
     public Professeur getProfesseur() {return professeur;}
 
     public void setProfesseur(Professeur professeur) {this.professeur = professeur;}
@@ -51,4 +58,7 @@ public class Classe {
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
+
+    public String getSalle() {return salle;}
+    public void setSalle(String salle) {this.salle = salle;}
 }

@@ -3,40 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestion des Professeurs</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
 <h1>INFORMATION ABOUT THE PROFESSORS</h1>
 <hr>
 
-<a th:href="@{/professeur/newProfesseur}"><button>ADD A NEW PROFESSOR</button></a>
+<a th:href="@{/professeur/newProfesseur}"><button class="btn btn-primary">ADD A NEW PROFESSOR</button></a>
 <a th:href="@{/classe/}">ALL ABOUT THE CLASSES</a>
 <hr>
 
 <div>
     <table th:if="${professeurs != null and !professeurs.isEmpty()}">
         <tr>
-            <th>Nom et Prenom</th>
+            <th>Nom et Prenom
+                <a th:href="@{/professeur/sorted}"><button class="btn btn-info">Trier Par Alphabétique</button></a>
+            </th>
             <th>E-Mail</th>
             <th>Nombre de classes</th>
+            <th>Nombre d'éleve total</th>
             <th>Actions</th>
         </tr>
         <tr th:each="professeur : ${professeurs}">
             <td>
              <span th:text="${professeur.nom+' '+professeur.prenom}"></span>
+
             </td>
             <td th:text="${professeur.email}"></td>
 
             <td th:text="${professeur.classes.size()}">Nombre de classe</td>
+            <td th:text="${totalEleves[professeur.id]}"></td>
             <td class="actions">
-               <a th:href="@{/professeur/{id}(id=${professeur.id})}" class="btn btn-sm btn-info">DETAILS</a>
-               <a th:href="@{/professeur/{id}/modify}" class="btn btn-sm btn-warning">MODIFY</a>
-               <a th:href="@{/professeur/{id}/delete}" class="btn btn-sm btn-danger"
-                  onclick="return confirm('confirmer la suppression ?')">DELETE</a>
+
+               <a th:href="@{/professeur/{id}(id=${professeur.id})}"><button class="btn btn-info">DETAILS</button></a>
+               <a th:href="@{/professeur/{id}/modify(id=${professeur.id})}"><button class="btn btn-warning">MODIFY</button></a>
+               <a th:href="@{/professeur/{id}/delete(id=${professeur.id})}"><button class="btn btn-danger">DELETE</button></a>
             </td>
         </tr>
 
     </table>
+    <hr>
+    <p>Total professeurs : <span th:text="${totalProfesseurs}"></span></p>
+    <p>Total classes : <span th:text="${totalClasses}"></span></p>
     <p th:if="${professeurs == null or professeurs.isEmpty()}">NO VALID INFORMATION FOR THE PROFESSOR</p>
 </div>
+
+<div th:if="${message}" class="message">
+    <span th:text="${message}"></span>
+</div>
+
 </body>
 </html>

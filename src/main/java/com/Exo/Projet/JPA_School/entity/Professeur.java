@@ -13,10 +13,11 @@ public class Professeur {
     private Long id;
     private String nom;
     private String prenom;
+
     private String email;
 
     @OneToMany(mappedBy = "professeur", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<Classe> classes = new ArrayList<>();
 
     public Professeur() {}
@@ -29,6 +30,10 @@ public class Professeur {
 
     public Professeur(List<Classe> classes) {
         this.classes = classes;
+    }
+
+    public boolean emailValide() {
+        return email != null && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
     }
 
     public Long getId() {

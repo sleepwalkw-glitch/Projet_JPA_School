@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>MANAGEMENT OF THE CLASSES</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
+<div>
 <h1>INFORMATIONS ABOUT THE CLASSES</h1>
+</div>
 <hr>
 
-<a th:href="@{/classe/newClasse}"><button>CREATE A NEW CLASS</button> </a>
+<a th:href="@{/classe/newClasse}"><button class="btn btn-primary">CREATE A NEW CLASS</button> </a>
 <a th:href="@{/professeur/}">ALL ABOUT THE PROFESSORS</a>
 <hr>
 
+<form th:action="@{/classe/search}" method="get">
+    <input type="text" name="niveau" placeholder="Rechercher par niveau">
+    <button type="submit">Rechercher</button>
+</form>
+
+<form th:action="@{/classe/searchMatiere}" method="get">
+    <input type="text" name="matiere" placeholder="Rechercher par matière">
+    <button type="submit">Rechercher</button>
+</form>
+
 <div>
-    <!-table to show all the information of the class-->
+    <!--table to show all the information of the class-->
     <table th:if="${classes != null and !classes.isEmpty()}">
         <tr>
             <th>Nom</th>
@@ -21,21 +34,33 @@
             <th>Matière</th>
             <th>Professeur</th>
             <th>Nombre d'élèves</th>
-            <!- the actions with links can be placed in detail file Actions-->
+            <th>Salle</th>
 
         </tr>
         <tr th:each="classe : ${classes}">
-            <td th:text="${classe.nom}"></td>
+            <td >
+                <a th:href="@{/classe/{id}(id=${classe.id})}"><button th:text="${classe.nom}" class="btn btn-info"></button></a>
+            </td>
             <td th:text="${classe.niveau}"></td>
-            <td th:text="${classe.matiere}"></td>
             <td>
-                <!-for the link for the details of professeur, should check the the id for the attribute professeur in classe-->
-                <a th:href="@{/professeur/{id}/detail(id=${classe.professeur.id})}">
+                 <span class="badge badge-outline badge-md"
+                       th:text="${classe.matiere}"
+                       th:classappend="${classe.matiere == 'Mathématiques' ? ' badge-primary' :
+                        (classe.matiere == 'Histoire' ? ' badge-warning' :
+                        (classe.matiere == 'Physique' ? ' badge-danger' : ' badge-secondary'))}">
+                 </span>
+            </td>
+            <td>
+                <!--for the link for the details of professeur, should check the id for the attribute professeur in classe-->
+                <a th:href="@{/professeur/{id}(id=${classe.professeur.id})}">
                    PROFESSOR</a>
-                <!-span th:text="${classe.professeur.nom+' '+classe.profeseur.prenom}"-->
+                <span th:text="${classe.professeur.nom+' '+classe.professeur.prenom}"></span>
+                <a th:href="@{/classe/reassign/{id}(id=${classe.id})}">
+                    <button class="btn btn-warning">Réassigner</button>
+                </a>
             </td>
             <td th:text="${classe.nombreEleves}"></td>
-
+            <td th:text="${classe.salle}"></td>
         </tr>
     </table>
     <p th:if="${classes == null or classes.isEmpty()}">NO VALID INFORMATION FOR THE CLASS</p>

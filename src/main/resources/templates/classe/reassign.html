@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Réassigner une classe</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<h2>Réassigner la classe : <span th:text="${classe.nom}"></span></h2>
+<hr>
+
+<form th:action="@{/classe/reassign}" method="post">
+
+    <input type="hidden" name="classeId" th:value="${classe.id}">
+
+    <label>Nouveau professeur :</label>
+    <select name="professeurId">
+        <option th:each="p : ${professeurs}"
+                th:value="${p.id}"
+                th:text="${p.nom + ' ' + p.prenom}">
+        </option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Confirmer</button>
+</form>
+
+</body>
+</html>

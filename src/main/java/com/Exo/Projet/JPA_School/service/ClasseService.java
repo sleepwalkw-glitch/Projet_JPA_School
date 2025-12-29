@@ -1,6 +1,7 @@
 package com.Exo.Projet.JPA_School.service;
 
 import com.Exo.Projet.JPA_School.entity.Classe;
+import com.Exo.Projet.JPA_School.entity.Professeur;
 import com.Exo.Projet.JPA_School.repository.ClasseRepository;
 import com.Exo.Projet.JPA_School.repository.ProfesseurRepository;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,11 @@ import java.util.Optional;
 @Service
 public class ClasseService {
     private final ClasseRepository classeRepository;
-   // private ProfesseurRepository professeurRepository;
+    private final ProfesseurRepository professeurRepository;
 
     public ClasseService(ClasseRepository classeRepository, ProfesseurRepository professeurRepository) {
         this.classeRepository = classeRepository;
-       // this.professeurRepository = professeurRepository;
+       this.professeurRepository = professeurRepository;
 
 /* here we can create new object by adding the data to the repository
     professeurRepository.save(new Professeur("Dupont","Jean","jean.dupont@example.com"));
@@ -63,6 +64,24 @@ public class ClasseService {
         classeRepository.deleteById(id);
 }
 
+    public long countClasses() {
+        return classeRepository.count();
+    }
+
+    public List<Classe> findByNiveau(String niveau) {
+       return classeRepository.findByNiveauContainingIgnoreCase(niveau);
+        }
+
+    public List<Classe> findByMatiere(String matiere) {
+        return classeRepository.findByMatiereContainingIgnoreCase(matiere);
+    }
+
+    public void reassignProfesseur(Long classeId, Long professeurId) {
+        Classe classe = classeRepository.findById(classeId).orElseThrow();
+        Professeur professeur = professeurRepository.findById(professeurId).orElseThrow();
+        classe.setProfesseur(professeur);
+        classeRepository.save(classe);
+    }
 }
 
 
